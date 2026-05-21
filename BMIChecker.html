@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BMI Checker Component</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-light">
+
+        <div class="container my-5" style="max-width: 450px;">
+            <div class="card p-4 border-0 shadow rounded-3">
+                <h3 class="text-center text-success fw-bold mb-4">Body Mass Index Checker</h3>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Weight (kg):</label>
+                    <input type="number" id="weight" class="form-control" placeholder="e.g. 70" step="any">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Height (cm):</label>
+                    <input type="number" id="height" class="form-control" placeholder="e.g. 175" step="any">
+                </div>
+
+                <button onclick="checkBMI()" class="btn btn-success w-100 py-2 fw-bold mb-3">Analyze BMI</button>
+
+                <div class="p-3 bg-white border rounded text-center">
+                    <h6 class="text-muted mb-1">Calculated Index Output</h6>
+                    <div id="bmiResult" class="fs-4 fw-bold text-dark">-</div>
+                    <div id="bmiStatus" class="fw-semibold mt-1"></div>
+                </div>
+                <a href="Tools.html" class="btn btn-sm btn-link text-center d-block mt-3 text-secondary">← Back to Dashboard</a>
+            </div>
+        </div>
+
+        <script>
+            function checkBMI() {
+                const weight = parseFloat(document.getElementById('weight').value);
+                const heightCm = parseFloat(document.getElementById('height').value);
+                const resultDiv = document.getElementById('bmiResult');
+                const statusDiv = document.getElementById('bmiStatus');
+
+                if (isNaN(weight) || isNaN(heightCm) || weight <= 0 || heightCm <= 0) {
+                    alert("Please insert valid positive numeric inputs.");
+                    return;
+                }
+
+                const heightM = heightCm / 100;
+                const bmi = weight / (heightM * heightM);
+
+                if (bmi < 18.5) {
+                    statusDiv.innerText = "Underweight";
+                    statusDiv.className = "fw-semibold mt-1 text-warning";
+                } else if (bmi >= 18.5 && bmi < 24.9) {
+                    statusDiv.innerText = "Normal Weight (Healthy)";
+                    statusDiv.className = "fw-semibold mt-1 text-success";
+                } else if (bmi >= 25 && bmi < 29.9) {
+                    statusDiv.innerText = "Overweight";
+                    statusDiv.className = "fw-semibold mt-1 text-warning";
+                } else {
+                    statusDiv.innerText = "Obese";
+                    statusDiv.className = "fw-semibold mt-1 text-danger";
+                }
+            }
+        </script>
+    </body>
+</html>

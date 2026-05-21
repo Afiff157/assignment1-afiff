@@ -1,0 +1,82 @@
+<!--
+Name: MUHAMMAD AFIFF BIN MOHAMAD ALI
+Matric: A25DW0411
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Simple Calculator</title>
+
+        <style>
+            body {font-family: sans-serif; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;}
+            .calc-box {width: 100%; max-width: 350px; border: 2px solid #333; padding: 20px; border-radius: 10px; background-color: #F9F9F9; box-shadow: 0 4px 15px rgba(0,0,0,0.05);}
+            label {display: block; margin-top: 10px; font-weight: bold;}
+            input {width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; border: 1px solid #CCC;}
+            .buttons {margin-top: 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;}
+            button {padding: 10px; cursor: pointer; font-weight: bold;}
+            .clear-btn {grid-column: span 2; background-color: #DC3545; color: white; border: none;}
+            .op-btn {background-color: #007BFF; color: white; border: none;}
+            #result {background-color: #E9ECEF; font-weight: bold;}
+        </style>
+    </head>
+
+    <body>
+        <div class="calc-box">
+            <h3>Simple Calculator</h3>
+
+            <label>First Number:</label>
+            <input type="number" id="num1">
+
+            <label>Second Number:</label>
+            <input type="number" id="num2">
+
+            <label>Result:</label>
+            <input type="text" id="result" readonly>
+            
+            <div class="buttons">
+                <button class="op-btn" onclick="calculate('+')">Add (+)</button>
+                <button class="op-btn" onclick="calculate('-')">Subtract (-)</button>
+                <button class="op-btn" onclick="calculate('*')">Multiply (*)</button>
+                <button class="op-btn" onclick="calculate('/')">Divide (÷)</button>
+                <button class="clear-btn" onclick="clearFields()">Clear</button>
+            </div>
+
+            <a href="Tools.html" style="display: block; text-align: center; margin-top: 20px; color: #6c757d; text-decoration: none; font-size: 14px;" onmouseover="this.style.color='#333'" onmouseout="this.style.color='#6c757d'">← Back to Dashboard</a>
+        </div>
+
+        <script>
+            function calculate(operator){
+                const n1 = parseFloat(document.getElementById('num1').value);
+                const n2 = parseFloat(document.getElementById('num2').value);
+                const resultField = document.getElementById('result');
+
+                if(isNaN(n1) || isNaN(n2)){
+                    resultField.value = "Please enter numbers";
+                    return;
+                }
+
+                let res;
+                switch(operator){
+                    case '+': res = n1 + n2; break;
+                    case '-': res = n1 - n2; break;
+                    case '*': res = n1 * n2; break;
+                    case '/':
+                        res = n2 !== 0 ? n1 / n2 : "Error (Divide by 0)";
+                        break;
+                }
+
+                resultField.value = typeof res === 'number' ? Number(res.toFixed(4)) : res;
+            }
+
+            function clearFields(){
+                document.getElementById('num1').value = "";
+                document.getElementById('num2').value = "";
+                document.getElementById('result').value = "";
+            }
+        </script>
+    </body>
+    
+</html>
